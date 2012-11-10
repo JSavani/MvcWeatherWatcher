@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MvcWeatherWatcher.Models.SensorReading>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Weather Details</h2>
+<style type="text/css">
+    .webGrid{margin:4px; border-collapse: collapse; width:auto;}
+    .header {
+        background-color: #E8E8E8;
+        font-weight: bold;
+        color: #FFF;
+        font-size:11px;
+        font-family:Verdana;
+    }
+    .webGrid th, .webGrid td{ border:1px solid #c0c0c0; padding: 4px;}
+    .alt {
+        background-color: #E8E8E8;
+        color: #000;
+    }
+ </style>
+
+@{
+    var grid = new WebGrid (source: Model,
+        defaultSort: "observation_time",
+        canPage:true,
+        rowsPerPage: 8);
+    grid.Pager(WebGridPagerModes.NextPrevious);
+    
+}
+    
+    <div id="grid">
+        
+    @grid.GetHtml(
+        tableStyle: "webGrid",
+        headerStyle: "header",
+        alternatingRowStyle: "alt",
+        columns: grid.Columns(
+            grid.Column("observation_time", "Observation Time"),
+            grid.Column("temp_f", "Temp Fahrenheit"),
+            grid.Column("temp_c", "Temp Celseius"),
+             grid.Column("relative_humidity","Humidity"),
+             grid.Column("wind_mph","Wind MPH"),
+             grid.Column("wind_kt", "Wind KT"),
+             grid.Column("pressure_mb","Pressure MB"),
+             grid.Column("pressure_in","Pressure IN"),
+             grid.Column("dewpoint_f","Dewpoint Fahrenheit"),
+             grid.Column("dewpoint_c","Dewpoint Celseius"),
+             grid.Column("windchill_f","Windchill Fahrenheit"),
+             grid.Column("windchill_c","Windchill Celseuis"),
+             grid.Column("visibility_mi","Visibility MI")
+                 )
+    )
+</div>
